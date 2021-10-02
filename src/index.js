@@ -27,7 +27,6 @@ const App = () => {
             <p>Description: {post.description}</p>
             <li>Price: {post.price}</li>
             <li>Seller: {post.author.username}</li>
-            <li>test test</li>
         </div>)
     }
     </>
