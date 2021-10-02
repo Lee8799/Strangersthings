@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
+import Login from './Login';
+import Posts from './Posts';
+
 const App = () => {
     const [posts, setPosts] = useState([]);
     console.log('posts: ', posts);
