@@ -1,22 +1,39 @@
 
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
-import { 
-    Login, 
-    Posts 
-} from './Components';
+import { Login } from './components';
+
+
+
 
 
 
 const App = () => {
-    //useState pairs here//
 
+return (
+<BrowserRouter>
+    <div id="container">
 
-    return <div className="app">
-        <Login />
-        <Posts />
+        <div id="navbar">
+             <Link to="/login"> Login </Link>
+             {/* <Link to="/register"> Register </Link> */}
+        </div>
+
+        <div id="routepaths">
+            <Route exact path="/login">
+                <Login />
+            </Route>
+            <Route exact path="/register">
+                {/* <Register /> */}
+            </Route>
+        </div>
+
     </div>
+</BrowserRouter>
+)
+    // useState pairs here//
 }
 
 ReactDOM.render(
