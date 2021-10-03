@@ -18,16 +18,14 @@ return (
 
         <div id="navbar">
              <Link to="/login"> Login </Link>
-             {/* <Link to="/register"> Register </Link> */}
+             <Link to="/register"> Register </Link>
         </div>
 
         <div id="routepaths">
-            <Route exact path="/login">
-                <Login />
-            </Route>
-            <Route exact path="/register">
-                {/* <Register /> */}
-            </Route>
+            <Route path="/login" render={(routeProps) => <Login {...routeProps} />}/>
+               
+            <Route path="/register" render={(routeProps) => <Login {...routeProps} />} />
+                
         </div>
 
     </div>

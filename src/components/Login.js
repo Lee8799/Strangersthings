@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react';
 
+function login(setToken, userName, passWord) {
+
+}
+
+function register(setToken, userName, passWord, confirmPassword) {
+
+}
 
 
-const Login = () => {
+const Login = ({ setToken, match }) => {
     
     const [userName, setUsername] = useState("enter your username");
     const [passWord, setPassword] = useState("enter your password");
@@ -44,7 +51,9 @@ const Login = () => {
             />
         </div>
             {/*CONFIRM PASSWORD*/}
-        <div className="container">
+            {/* To Do: ONLY RENDER IF /register */}
+        {match.url === "/register" ?    
+        (<div className="container">
             <label className="form-label">
                 Confirm Password
             </label>
@@ -56,7 +65,9 @@ const Login = () => {
                 id="setConfirmPasswordInput"
                 placeholder=""
             />
-        </div>
+        </div>) : null}
+
+            {/*SUBMIT BUTTON*/}
         <div className="submit">
             <button type="submit" className="submit-button">
                 Submit
