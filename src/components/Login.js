@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react';
+import { Link } from 'react-router-dom';
 
 function login(setToken, userName, passWord) {
 
@@ -72,8 +73,14 @@ const Login = ({ setToken, match }) => {
             <button type="submit" className="submit-button">
                 Submit
             </button>
-        </div>
+            {/* Link to login and reigster*/}
+            {
+                match.url === "/register" ?
+                <Link to="/login"> Already have an account? </Link>
+                : <Link to="/register"> Don't have an account?</Link>
 
+            }
+        </div>
         </form>
     )
 }
