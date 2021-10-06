@@ -1,26 +1,67 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react';
 import { Link } from 'react-router-dom';
+import {BASE_URL} from './constants';
 
-function login(setToken, userName, passWord) {
+async function login(userName, passWord, setToken) {
+    //pass these to API, and get back a token
+    //save token in user's browser
+    //update state 
+const response = await fetch(BASE_URL + 'users/login', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+    user: {
+        username: userName,
+        password: passWord
+          }
+        })
+    })
+      
+        const result = await response.json();
+        console.log(result);
 
 }
 
-function register(setToken, userName, passWord, confirmPassword) {
-
+async function register(setToken, userName, passWord, confirmPassword) {
+if (passWord !== confirmPassword) {
+    alert("Passwords don't match");
+    return;
+}
+const response = await fetch(BASE_URL + 'users/login', {
+  method: "POST",
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    user: {
+      username: userName,
+      password: passWord
+    }
+  })
+}).then(response => response.json())
+  .then(({ data }) => {
+      const { token } = data.data;
+    console.log(token);
+  })
+  .catch(console.error);
 }
 
-
+//match here is a variable of routeProps, and setToken is a prop that we added//
 const Login = ({ setToken, match }) => {
     
-    const [userName, setUsername] = useState("enter your username");
-    const [passWord, setPassword] = useState("enter your password");
+    const [userName, setUsername] = useState("your username");
+    const [passWord, setPassword] = useState("your password");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     return (
         <form
         onSubmit={(event) => {
             event.preventDefault();
+            if (match.url === "/register") register(setToken, userName, passWord, confirmPassword)
+            if (match.url === "/login") login(userName, passWord)
         }}
         >
             {/*USERNAME*/}
@@ -31,7 +72,7 @@ const Login = ({ setToken, match }) => {
             <input
                 type="text"
                 value={userName}
-                onChange={({target: {value}}) => setUserName(value)}
+                onChange={({target: {value}}) => setUsername(value)}
                 className="form-control"
                 id="usernameInput"
                 placeholder="your username here"

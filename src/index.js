@@ -11,21 +11,16 @@ import { Login } from './components';
 
 
 const App = () => {
-
-return (
+    const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
+return (                                       //we can use setToken as a prop in the navbar div because we are rendering routeProps//
 <BrowserRouter>
     <div id="container">
 
         <div id="navbar">
-             <Link to="/login"> Login </Link>
-             <Link to="/register"> Register </Link>
-        </div>
-
-        <div id="routepaths">
-            <Route path="/login" render={(routeProps) => <Login {...routeProps} />}/>
-               
+            <Link to="/login"> Login </Link>
+            <Link to="/register"> Register </Link>
+            <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} />} />
-                
         </div>
 
     </div>
