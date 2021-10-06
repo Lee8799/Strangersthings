@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {BASE_URL} from './constants';
+import { BASE_URL } from '../constants';
 
 async function login(userName, passWord, setToken) {
     //pass these to API, and get back a token
@@ -20,9 +20,10 @@ const response = await fetch(BASE_URL + 'users/login', {
     })
       
         const result = await response.json();
-        console.log(result.data.token);
+    
         const token = result.data.token;
         setToken(token);
+        localStorage.setItem("token", token);
 }
 
 async function register(setToken, userName, passWord, confirmPassword) {
@@ -42,8 +43,12 @@ if (passWord !== confirmPassword) {
             }
         })
         })  
-            const result = await response.json();
-            console.log(result);
+        const result = await response.json();
+        console.log(result);
+        const token = result.data.token;
+        setToken(token);
+        localStorage.setItem("token", token);
+        
 }
 
 //match here is a variable of routeProps, and setToken is a prop that we added//
@@ -58,7 +63,7 @@ const Login = ({ setToken, match }) => {
         onSubmit={(event) => {
             event.preventDefault();
             if (match.url === "/register") register(setToken, userName, passWord, confirmPassword)
-            if (match.url === "/login") login(userName, passWord)
+            if (match.url === "/login") login(userName, passWord, setToken)
         }}
         >
             {/*USERNAME*/}

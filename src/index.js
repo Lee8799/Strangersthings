@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
-import { Login } from './components';
+import { Login, Profile } from './components';
 
 
 
@@ -12,15 +12,26 @@ import { Login } from './components';
 
 const App = () => {
     const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
-return (                                       //we can use setToken as a prop in the navbar div because we are rendering routeProps//
+                                            //we can use setToken as a prop in the navbar div because we are rendering routeProps//
+    useEffect(() => {
+        console.log("Mounted")
+        //now we need to get the token from local storage and use it to log in
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, [])
+return ( 
 <BrowserRouter>
     <div id="container">
 
         <div id="navbar">
             <Link to="/login"> Login </Link>
             <Link to="/register"> Register </Link>
+            <Link to="/profile">Your Profile</Link>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />}/> 
-            <Route path="/register" render={(routeProps) => <Login {...routeProps} />} />
+            <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
+            <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
         </div>
 
     </div>
