@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react';
 import { Link } from 'react-router-dom';
 import {BASE_URL} from './constants';
 
@@ -21,32 +20,30 @@ const response = await fetch(BASE_URL + 'users/login', {
     })
       
         const result = await response.json();
-        console.log(result);
-
+        console.log(result.data.token);
+        const token = result.data.token;
+        setToken(token);
 }
 
 async function register(setToken, userName, passWord, confirmPassword) {
 if (passWord !== confirmPassword) {
     alert("Passwords don't match");
     return;
-}
-const response = await fetch(BASE_URL + 'users/login', {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    user: {
-      username: userName,
-      password: passWord
     }
-  })
-}).then(response => response.json())
-  .then(({ data }) => {
-      const { token } = data.data;
-    console.log(token);
-  })
-  .catch(console.error);
+        const response = await fetch(BASE_URL + 'users/register', {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user: {
+            username: userName,
+            password: passWord
+            }
+        })
+        })  
+            const result = await response.json();
+            console.log(result);
 }
 
 //match here is a variable of routeProps, and setToken is a prop that we added//
