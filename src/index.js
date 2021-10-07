@@ -4,40 +4,48 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import { Login, Profile } from './components';
-
-
-
+import logout from './components';
+import { getUser } from './api';
 
 
 
 const App = () => {
     const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
-                                            //we can use setToken as a prop in the navbar div because we are rendering routeProps//
+    const [user, setUser] = useState({
+        username:""
+    });                                        //we can use setToken as a prop in the navbar div because we are rendering routeProps//
     useEffect(() => {
         console.log("Mounted")
         //now we need to get the token from local storage and use it to log in
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
             setToken(storedToken);
+            getUser(token, setUser);
         }
     }, [])
 return ( 
 <BrowserRouter>
     <div id="container">
+        <div id="title">
+        STRANGERS' THINGS
+        </div>
 
         <div id="navbar">
             <Link to="/login"> Login </Link>
             <Link to="/register"> Register </Link>
-            <Link to="/profile">Your Profile</Link>
+            <Link to="/logout"> Logout </Link>
+            <Link to="/profile"> Profile </Link>
+            
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />}/> 
-            <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} />} />
+            <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
+            <Route path="/logout" render={(routeProps) => <Login {...routeProps} />} />
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
         </div>
 
     </div>
 </BrowserRouter>
 )
-    // useState pairs here//
+   
 }
 
 ReactDOM.render(

@@ -20,10 +20,14 @@ const response = await fetch(BASE_URL + 'users/login', {
     })
       
         const result = await response.json();
-    
+        console.log(result);
         const token = result.data.token;
         setToken(token);
         localStorage.setItem("token", token);
+}
+
+export async function logout(token) {
+    localStorage.removeItem("token", token)
 }
 
 async function register(setToken, userName, passWord, confirmPassword) {
@@ -64,6 +68,7 @@ const Login = ({ setToken, match }) => {
             event.preventDefault();
             if (match.url === "/register") register(setToken, userName, passWord, confirmPassword)
             if (match.url === "/login") login(userName, passWord, setToken)
+            if (match.url === "/logout") logout(setToken)
         }}
         >
             {/*USERNAME*/}
@@ -116,7 +121,7 @@ const Login = ({ setToken, match }) => {
             <button type="submit" className="submit-button">
                 Submit
             </button>
-            {/* Link to login and reigster*/}
+            {/* Link to login and register*/}
             {
                 match.url === "/register" ?
                 <Link to="/login"> Already have an account? </Link>
@@ -124,9 +129,19 @@ const Login = ({ setToken, match }) => {
 
             }
         </div>
+
+          {/*LOGOUT*/}
+            {/*To Do: ONLY RENDER IF /logout */}
+            {match.url === "/logout" ?
+        (<div className="container">
+            <h1>Successfully logged out. See you next time!</h1>
+        </div>) : null}
+
         </form>
     )
 }
+
+
 
 
 export default Login;
