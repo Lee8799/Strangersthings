@@ -21,9 +21,9 @@ const Profile = ({token, history}) => {
 
 } else {
     return (
-        <BrowserRouter>
-        Please <Link to="/login">login</Link> to see your profile
-        </BrowserRouter>
+            <h2>
+            Please login to see your profile
+            </h2>
     )
 }
 };

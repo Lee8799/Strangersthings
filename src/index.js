@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 import { Login, Profile } from './components';
-import logout from './components';
-import { getUser } from './api';
+import { getUser, logout } from './api';
 
 
 
@@ -27,19 +26,24 @@ return (
 <BrowserRouter>
     <div id="container">
         <div id="title">
-        STRANGERS' THINGS
+        <Link to="/profile">STRANGERS' THINGS</Link>
         </div>
 
         <div id="navbar">
             <Link to="/login"> Login </Link>
             <Link to="/register"> Register </Link>
-            <Link to="/logout"> Logout </Link>
+            <span 
+            id="logoutbutton"
+            onClick={() => {
+                alert('See you next time!')
+                logout(setToken);
+            }} > Logout </span>
             <Link to="/profile"> Profile </Link>
-            
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
-            <Route path="/logout" render={(routeProps) => <Login {...routeProps} />} />
+           
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
+            <Route exact path="/" render={(routeProps) => token ? <Profile token={token} {...routeProps}/> : <Login {...routeProps} setToken={setToken} />} />
         </div>
 
     </div>

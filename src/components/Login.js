@@ -26,9 +26,6 @@ const response = await fetch(BASE_URL + 'users/login', {
         localStorage.setItem("token", token);
 }
 
-export async function logout(token) {
-    localStorage.removeItem("token", token)
-}
 
 async function register(setToken, userName, passWord, confirmPassword) {
 if (passWord !== confirmPassword) {
@@ -68,7 +65,7 @@ const Login = ({ setToken, match }) => {
             event.preventDefault();
             if (match.url === "/register") register(setToken, userName, passWord, confirmPassword)
             if (match.url === "/login") login(userName, passWord, setToken)
-            if (match.url === "/logout") logout(setToken)
+            
         }}
         >
             {/*USERNAME*/}
@@ -129,13 +126,6 @@ const Login = ({ setToken, match }) => {
 
             }
         </div>
-
-          {/*LOGOUT*/}
-            {/*To Do: ONLY RENDER IF /logout */}
-            {match.url === "/logout" ?
-        (<div className="container">
-            <h1>Successfully logged out. See you next time!</h1>
-        </div>) : null}
 
         </form>
     )

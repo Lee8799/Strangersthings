@@ -16,3 +16,8 @@ export async function getUser(token, setUser){
 // setToken(token);
 // localStorage.setItem("token", token);
 }
+
+export function logout(setToken) {
+  localStorage.removeItem("token")
+  setToken(null);
+}

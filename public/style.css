@@ -8,3 +8,24 @@
     color: black;
     text-align: center;
 }
+
+#title a {
+    color:inherit }
+
+#navbar a {
+    color: black
+}
+
+a:hover {
+    font-weight:bold;
+}
+
+#logoutbutton {
+    color: black; 
+}
+
+#logoutbutton:hover {
+    cursor: pointer;
+    font-weight:bold;
+    text-decoration: underline;
+}
