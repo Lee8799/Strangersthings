@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
 import { Login, Profile } from './components';
 import { getUser, logout } from './api';
@@ -39,7 +39,7 @@ return (
                 logout(setToken);
             }} > Logout </span>
             <Link to="/profile"> Profile </Link>
-            <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} />}/> 
+            <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
            
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />

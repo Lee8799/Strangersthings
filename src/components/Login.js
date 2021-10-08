@@ -1,31 +1,31 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { BASE_URL } from '../constants';
 
-async function login(userName, passWord, setToken) {
+async function login(userName, passWord, setToken, history) {
     //pass these to API, and get back a token
     //save token in user's browser
     //update state 
-const response = await fetch(BASE_URL + 'users/login', {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-    user: {
-        username: userName,
-        password: passWord
-          }
+    const response = await fetch(BASE_URL + '/users/login', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        user: {
+            username: userName,
+            password: passWord
+              }
+            })
         })
-    })
-      
-        const result = await response.json();
-        console.log(result);
-        const token = result.data.token;
-        setToken(token);
-        localStorage.setItem("token", token);
-}
-
+          
+            const result = await response.json();
+            console.log(result);
+            const token = result.data.token;
+            setToken(token);
+            localStorage.setItem("token", token);
+            history.push("/");
+    }
 
 async function register(setToken, userName, passWord, confirmPassword) {
 if (passWord !== confirmPassword) {
@@ -53,7 +53,7 @@ if (passWord !== confirmPassword) {
 }
 
 //match here is a variable of routeProps, and setToken is a prop that we added//
-const Login = ({ setToken, match }) => {
+const Login = ({ setToken, match, history }) => {
     
     const [userName, setUsername] = useState("your username");
     const [passWord, setPassword] = useState("your password");
@@ -63,8 +63,8 @@ const Login = ({ setToken, match }) => {
         <form
         onSubmit={(event) => {
             event.preventDefault();
+            if (match.url === "/login") login(userName, passWord, setToken, history);
             if (match.url === "/register") register(setToken, userName, passWord, confirmPassword)
-            if (match.url === "/login") login(userName, passWord, setToken)
             
         }}
         >

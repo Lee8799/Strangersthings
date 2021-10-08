@@ -1,23 +1,34 @@
 
 import { BASE_URL } from '../constants';
 
+//GET USER//
 export async function getUser(token, setUser){
- fetch(BASE_URL + 'users/me', {
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer' + {token}
-  },
-}).then(response => response.json())
-.then(result => {
-  console.log(result);
-})
-.catch(console.error);
-// const token = result.data.token;
-// setToken(token);
-// localStorage.setItem("token", token);
+  try {
+    const result = await fetch(BASE_URL + '/users/me', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + {token}
+        }
+    })
+    const data = await result.json();
+    console.log(data);
+    return data;
+} catch(error) {
+  console.error(error);
+  }
 }
 
+
+
+//LOGOUT//
 export function logout(setToken) {
   localStorage.removeItem("token")
   setToken(null);
 }
+
+//MAKEHEADERS//
+export function makeHeaders(token) {
+
+}
+
+//

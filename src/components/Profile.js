@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { getUser } from '../api';
 
-const Profile = ({token, history}) => {
+const Profile = ({token}) => {
     const [user, setUser] = useState(token);
 
     useEffect(() => {
