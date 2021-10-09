@@ -7,7 +7,7 @@ export async function getUser(token, setUser){
     const result = await fetch(BASE_URL + '/users/me', {
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + {token}
+            'Authorization': 'Bearer ' + token
         }
     })
     const data = await result.json();
@@ -28,7 +28,14 @@ export function logout(setToken) {
 
 //MAKEHEADERS//
 export function makeHeaders(token) {
-
+  const headers = {
+    'Content-Type': 'application/json'
+  }
+  if (token) {
+    headers['Authorization'] = 'Bearer ' + token
+  }
+  return headers;
 }
+
 
 //
