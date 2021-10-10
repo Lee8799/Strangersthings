@@ -10,9 +10,7 @@ import { getUser, logout } from './api';
 
 const App = () => {
     const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
-    const [user, setUser] = useState({
-        username:""
-    });    
+    const [user, setUser] = useState({});
     
     //we can use setToken as a prop in the navbar div because we are rendering routeProps//
 
@@ -23,9 +21,9 @@ const App = () => {
         const storedToken = localStorage.getItem("token");
         if (storedToken) {
             setToken(storedToken);
-            getUser(token, setUser);
+            getUser(storedToken, setUser);
         }
-    }, [])
+    }, [token])
 
 
 return ( 
@@ -44,8 +42,10 @@ return (
                 alert('See you next time!')
                 logout(setToken);
             }} > Logout </span>
+            <p>
             <Link to="/profile"> Profile </Link>
-            <Link to="/posts"> Posts </Link>
+            <Link to="/posts"> Current Listings </Link>
+            </p>
         </div>  
             <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 

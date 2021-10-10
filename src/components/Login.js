@@ -33,7 +33,7 @@ if (passWord !== confirmPassword) {
     alert("Passwords don't match");
     return;
     }
-        const response = await fetch(BASE_URL + 'users/register', {
+        const response = await fetch(BASE_URL + '/users/register', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'

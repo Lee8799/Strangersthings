@@ -4,7 +4,9 @@ import { makeHeaders } from '../api';
 
 
 
-
+//fetch posts using the makeHeaders function, which requires a token, and which gives this fetch call the token as authorization. 
+//take that data, parse it, and let dataposts be equal to data.data.posts.
+//set the state of posts using dataposts
 
 async function fetchPosts(token, setPosts) {
     try{
@@ -20,16 +22,17 @@ async function fetchPosts(token, setPosts) {
 }
 }
 
-
+//post component//
+//requires token to be rendered, so extract that token and set the state of posts inside of the post component
 const Posts = ({token}) => {
     const [posts, setPosts] = useState([]);
 
     console.log('posts: ', posts);
-
     
 //FETCH POSTS//
 //*** makes a call for posts when token available ***//
-
+//as a "side effect" of the token being available, fetch the posts and set those to state 
+//then return the listings
 
 useEffect(() => {
     fetchPosts(token, setPosts)
