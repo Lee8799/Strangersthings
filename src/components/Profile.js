@@ -17,11 +17,16 @@ const Profile = ({token}) => {
         getUser(token, setUser)
     }, [token])
 
-  
+  if (token) {
         return (
             <div className="centered">
                 <h1> Welcome back, {user}!</h1> 
             </div>)
+  } else {
+      return (
+          <h1>Please login to view profile</h1>
+      )
+  }
         
 };
 
