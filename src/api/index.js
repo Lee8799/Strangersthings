@@ -11,14 +11,13 @@ export async function getUser(token, setUser){
         }
     })
     const data = await result.json();
-    console.log(data);
-    return data;
+    console.log(data.data.username);
+    setUser(data.data.username);
+    
 } catch(error) {
   console.error(error);
   }
 }
-
-
 
 //LOGOUT//
 export function logout(setToken) {
@@ -38,4 +37,3 @@ export function makeHeaders(token) {
 }
 
 
-//

@@ -2,6 +2,7 @@
 
 import Login from './Login';
 import Profile from './Profile';
+import Posts from './Posts';
 
 // import Posts from './Posts';
 
@@ -9,6 +10,7 @@ import Profile from './Profile';
 
 export { Login };
 export { Profile };
+export { Posts };
 
 
 

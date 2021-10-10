@@ -22,6 +22,7 @@ async function login(userName, passWord, setToken, history) {
             const result = await response.json();
             console.log(result);
             const token = result.data.token;
+            // const loggedinuser = result.data.username;
             setToken(token);
             localStorage.setItem("token", token);
             history.push("/");

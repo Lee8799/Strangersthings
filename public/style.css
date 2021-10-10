@@ -12,6 +12,10 @@
 #title a {
     color:inherit }
 
+#navbar {
+    text-align:center;
+}
+
 #navbar a {
     color: black
 }
