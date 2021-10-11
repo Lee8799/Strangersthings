@@ -21,6 +21,45 @@ export async function getUser(token, setUser){
   }
 }
 
+
+//FETCH POSTS//
+export async function fetchPosts(token, setPosts) {
+  try{
+      const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
+          headers: makeHeaders(token)
+      }) 
+  const data = await response.json();
+  const dataposts = data.data.posts;
+  setPosts(dataposts);
+  console.log('data: ', data.data.posts);
+}catch (error){
+  console.error(error)
+}
+}
+
+//MAKE NEW POST//
+export async function newPost(token, newTitle, newDescrip, newPrice, newTransport) {
+  try{
+      const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
+          method: "POST",
+          headers: makeHeaders(token),
+          body: JSON.stringify({
+            post: {
+              title: newTitle,
+              description: newDescrip,
+              price: newPrice,
+              location: newLocation,
+              willDeliver: newTransport
+            }
+          })
+      })
+      const data = await result.json();
+      return data;
+      } catch (error) {
+    console.error(error)
+    }
+}
+
 //LOGOUT//
 export function logout(setToken) {
   localStorage.removeItem("token")

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { makeHeaders } from '../api';
+import { makeHeaders, fetchPosts } from '../api';
 
 
 
@@ -8,19 +8,7 @@ import { makeHeaders } from '../api';
 //take that data, parse it, and let dataposts be equal to data.data.posts.
 //set the state of posts using dataposts
 
-async function fetchPosts(token, setPosts) {
-    try{
-        const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
-            headers: makeHeaders(token)
-        }) 
-    const data = await response.json();
-    const dataposts = data.data.posts;
-    setPosts(dataposts);
-    console.log('data: ', data.data.posts);
-}catch (error){
-    console.error(error)
-}
-}
+
 
 //post component//
 //requires token to be rendered, so extract that token and set the state of posts inside of the post component

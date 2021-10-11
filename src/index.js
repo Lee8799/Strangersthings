@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
-import { Login, Profile, Posts } from './components';
+import { Login, Profile, Posts, MakePost } from './components';
 import { getUser, logout } from './api';
 
 
@@ -42,15 +42,17 @@ return (
                 alert('See you next time!')
                 logout(setToken);
             }} > Logout </span>
-            <p>
-            <Link to="/profile"> Profile </Link>
-            <Link to="/posts"> Current Listings </Link>
-            </p>
+                <p>
+                    <Link to="/profile"> Profile </Link>
+                    <Link to="/posts"> Listings   </Link>
+                    <Link to="/makepost"> Create New </Link>
+                </p>
+                    
         </div>  
             <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} />}/>
+            <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} setToken={setToken} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
-            
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
             <Route exact path="/" render={(routeProps) => token ? <Profile token={token} {...routeProps}/> : <Login {...routeProps} setToken={setToken} />} />
         
