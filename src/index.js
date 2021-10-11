@@ -53,7 +53,7 @@ return (
                     
         </div>  
             <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
-            <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
+            <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} token={token} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />

@@ -57,7 +57,7 @@ export async function newPost(token, newTitle, newDescrip, newPrice, newLocation
           })
       })
       const data = await response.json();
-      return data.data.post
+      return data;
       } catch (error) {
     console.error(error)
     }
