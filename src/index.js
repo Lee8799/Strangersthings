@@ -11,6 +11,8 @@ import { getUser, logout } from './api';
 const App = () => {
     const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
     const [user, setUser] = useState({});
+    const [posts, setPosts] = useState([]);
+    
     
     //we can use setToken as a prop in the navbar div because we are rendering routeProps//
 
@@ -22,6 +24,7 @@ const App = () => {
         if (storedToken) {
             setToken(storedToken);
             getUser(storedToken, setUser);
+            setPosts(posts);
         }
     }, [token])
 
@@ -49,8 +52,8 @@ return (
                 </p>
                     
         </div>  
-            <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} />}/>
-            <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} setToken={setToken} />}/>
+            <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
+            <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />

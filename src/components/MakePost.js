@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import BASE_URL from '../constants';
 import { newPost } from '../api';
 
 
 
-const MakePost = ({token}) => {
+const MakePost = ({token, setPosts, posts}) => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescrip, setNewDescrip] = useState('');
     const [newPrice, setNewPrice] = useState('');
     const [newLocation, setNewLocation] = useState('');
     const [newTransport, setNewTransport] = useState(false);
 
-    return (
+    return(
         <article className='newPostArticle'>
             <h3>New Post</h3>
-            <form onSubmit={(event) => {
+            <form onSubmit={async (event) => {
                 event.preventDefault();
-                const data = newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
-                setNewTitle('');
-                setNewDescrip(''),
-                setNewPrice(''),
-                setNewLocation(''),
-                setNewTransport(false);
-                console.log(data);
+                try {
+                    const result = await newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
+                    setPosts([...posts, result])
+                    console.log(result)
+                }
+                catch (error) {
+                    console.log(error)
+                } 
             }}>
                 <label htmlFor="postTitle">Post Title:</label>
                 <input
                     type='text'
                     value={newTitle}
-                    onChange={({target: {value}}) => setNewPostTitle(value)}
+                    onChange={({target: {value}}) => setNewTitle(value)}
                     className="form-control"
                     id='postTitle'
                     placeholder='title'

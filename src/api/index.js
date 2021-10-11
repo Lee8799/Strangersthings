@@ -38,11 +38,14 @@ export async function fetchPosts(token, setPosts) {
 }
 
 //MAKE NEW POST//
-export async function newPost(token, newTitle, newDescrip, newPrice, newTransport) {
+export async function newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport) {
   try{
-      const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
+      const response = await fetch(BASE_URL + '/posts', {
           method: "POST",
-          headers: makeHeaders(token),
+          headers:  {
+                      'Content-Type': 'application/json',
+                      'Authorization': 'Bearer ' + token
+                    },
           body: JSON.stringify({
             post: {
               title: newTitle,
@@ -53,8 +56,8 @@ export async function newPost(token, newTitle, newDescrip, newPrice, newTranspor
             }
           })
       })
-      const data = await result.json();
-      return data;
+      const data = await response.json();
+      return data.data.post
       } catch (error) {
     console.error(error)
     }
