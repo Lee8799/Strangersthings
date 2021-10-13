@@ -18,7 +18,7 @@ const MakePost = ({token, setPosts, posts}) => {
                 event.preventDefault();
                 try {
                     const result = await newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
-                    setPosts([...posts, Profile, result])
+                    setPosts([...posts, result])
                     
                 }
                 catch (error) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+
 import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
 
 
@@ -14,7 +14,7 @@ import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
 
 //post component//
 //requires token to be rendered, so extract that token and set the state of posts inside of the post component
-const Posts = ({token, match, loggedIn, postID}) => {
+const Posts = ({token, loggedIn, postID, history}) => {
     const [posts, setPosts] = useState([]);
 
     console.log('posts: ', posts);
@@ -29,10 +29,6 @@ useEffect(() => {
     
 }, [token]);
 
-useEffect(() => {
-        deletePost(token, postID)
-    
-}, [token]);
 
 // useEffect(() => {
     
@@ -57,6 +53,8 @@ useEffect(() => {
                                                 onClick={async () => {
                                                     const postID = post._id;
                                                     const result = await deletePost(token, post._id);
+                                                    alert(`Delete ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
+                                                    history.push('/posts')
                                                         }}
                                                 className="deleteButton">
                                                     Delete
