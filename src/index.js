@@ -4,14 +4,19 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
 import { Login, Profile, Posts, MakePost } from './components';
-import { getUser, logout } from './api';
+import { getUser, logout, isLoggedIn } from './api';
 
 
 
 const App = () => {
-    const [token, setToken] = useState(null); //we need to put token state here because it will be used throughout the entire app//
+    const [token, setToken] = useState(localStorage.getItem('token')); //we need to put token state here because it will be used throughout the entire app//
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(isLoggedIn(token));
+
+    useEffect(() => {
+        setLoggedIn(isLoggedIn(token));
+    }, [token])
     
     
     //we can use setToken as a prop in the navbar div because we are rendering routeProps//
@@ -20,13 +25,11 @@ const App = () => {
     useEffect(() => {
         console.log("Mounted")
         //now we need to get the token from local storage and use it to log in
-        const storedToken = localStorage.getItem("token");
-        if (storedToken) {
-            setToken(storedToken);
-            getUser(storedToken, setUser);
+        if (token) {
             setPosts(posts);
-        }
+        }    
     }, [token])
+
 
 
 return ( 
@@ -52,7 +55,7 @@ return (
                 </p>
                     
         </div>  
-            <Route path="/posts" render={(routeProps) => <Posts {...routeProps} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
+            <Route path="/posts" render={(routeProps) => <Posts {...routeProps} loggedIn={loggedIn} token={token} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
             <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} token={token} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { makeHeaders, fetchPosts } from '../api';
+import { makeHeaders, fetchPosts, getPostWithID } from '../api';
 
 
 
@@ -12,7 +12,7 @@ import { makeHeaders, fetchPosts } from '../api';
 
 //post component//
 //requires token to be rendered, so extract that token and set the state of posts inside of the post component
-const Posts = ({token}) => {
+const Posts = ({token, match, loggedIn}) => {
     const [posts, setPosts] = useState([]);
 
     console.log('posts: ', posts);
@@ -24,25 +24,47 @@ const Posts = ({token}) => {
 
 useEffect(() => {
     fetchPosts(token, setPosts)
+    console.log(fetchPosts)
+    
 }, [token]);
 
-    return (<>
-    <div>
-        <h2>Current Listings</h2>
-        
-    </div>
-
-    {
-        posts.map((post, idx) => <div key={idx}>
-            <h3>{post.title}</h3>
-            <p>Description: {post.description}</p>
-            <li>Price: {post.price}</li>
-            <li>Seller: {post.author.username}</li>
-        </div>)
-    }
-    </>
-    )
+// useEffect(() => {
+//     const postID = match.params.postID;
+//     getPostWithID(token, postID, match.params.postID, setPosts);
+// },[token, match.params.postID]);
+    
+        return (
+            <div>
+                    <div>
+                        <h2>Current Listings</h2>
+                    </div>
+                            <ul className="otherPosts">
+                                {
+                                    posts.map((post, idx) => 
+                                    <div key={idx}>
+                                        <h3>{post.title}</h3>
+                                        <p>Description: {post.description}</p>
+                                        <li>Price: {post.price}</li>
+                                        <li>Seller: {post.author.username}</li> 
+                                        <ul> { post.isAuthor ? 
+                                            <button
+                                        onClick={() => editPost() }
+                                        className="editButton">
+                                            edit post
+                                            </button>
+                                        : null }
+                                        
+                                        </ul></div>
+                                        )
+                                    } 
+                                        </ul>
+                     </div>
+                  
+   )
 }
+
+
+
 
 export default Posts;
 

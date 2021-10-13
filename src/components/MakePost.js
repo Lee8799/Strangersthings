@@ -4,7 +4,6 @@ import BASE_URL from '../constants';
 import { newPost } from '../api';
 
 
-
 const MakePost = ({token, setPosts, posts}) => {
     const [newTitle, setNewTitle] = useState('');
     const [newDescrip, setNewDescrip] = useState('');
@@ -14,12 +13,12 @@ const MakePost = ({token, setPosts, posts}) => {
 
     return(
         <article className='newPostArticle'>
-            <h3>New Post</h3>
+            <h3>Create New Listing</h3>
             <form onSubmit={async (event) => {
                 event.preventDefault();
                 try {
                     const result = await newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
-                    setPosts([...posts, result])
+                    setPosts([...posts, Profile, result])
                     console.log(result)
                 }
                 catch (error) {
