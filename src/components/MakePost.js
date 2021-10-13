@@ -19,7 +19,7 @@ const MakePost = ({token, setPosts, posts}) => {
                 try {
                     const result = await newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
                     setPosts([...posts, Profile, result])
-                    console.log(result)
+                    
                 }
                 catch (error) {
                     console.log(error)

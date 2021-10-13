@@ -32,41 +32,6 @@ export async function getUser(token, setUser){
 }
 
 
-// export async function fetchPosts(token, setPosts) {
-//   if (!token) {
-//     try {
-//         const res = await fetch(BASE_URL + '/posts', {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         } );
-//         const data = await res.json();
-//         const postdata = data.data.posts;
-//         setPosts(postdata);
-//     } catch(err) {
-//         console.error(err);
-//     }
-// } else if (token) {
-//     try {
-//         const res = await fetch(BASE_URL + '/posts', {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': 'Bearer ' + token
-//             }
-//         } );
-//         const data = await res.json();
-//         const postdata = data.data.posts;
-//         setPosts(postdata);
-//     } catch(err) {
-//         console.error(err);
-//     }
-// }
-
-// }
-
-
 
 //FETCH POSTS//
 export async function fetchPosts(token, setPosts) {
@@ -109,16 +74,45 @@ export async function newPost(token, newTitle, newDescrip, newPrice, newLocation
     }
 }
 
+
+//EDIT POST//
+
+// export async function editPost(token, postID, editTitle, editDescrip, editPrice, editLocation, editTransport) {
+//   try {
+//     const result = await fetch(BASE_URL + '/posts/' + postID, {
+//         method: 'PATCH',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer ' + token
+//         },
+//         body: JSON.stringify({
+//             post: {
+//                 title: editTitle,
+//                 description: editDescrip,
+//                 price: editPrice,
+//                 location: editLocation,
+//                 willDeliver: editTransport
+//             }
+//         })
+//     })
+//     const data = await result.json();
+//     console.log(data);
+//     return data;
+// } catch(error) {
+//     console.log(error);
+// }
+// }
+    
+  
+
+
 //DELETE POST//
 
-export async function deletePost(token, ID){
+export async function deletePost(token, postID){
   try {
-    const result = await fetch(`${BASE_URL}/posts/${ID}`, {
+    const result = await fetch(`${BASE_URL}/posts/${postID}`, {
         method: "DELETE",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + token
-        }
+        headers: makeHeaders(token)
     })
       const data = await result.json()
       return data;

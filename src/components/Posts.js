@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { makeHeaders, fetchPosts, getPostWithID } from '../api';
+import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
+
+
 
 
 
@@ -12,7 +14,7 @@ import { makeHeaders, fetchPosts, getPostWithID } from '../api';
 
 //post component//
 //requires token to be rendered, so extract that token and set the state of posts inside of the post component
-const Posts = ({token, match, loggedIn}) => {
+const Posts = ({token, match, loggedIn, postID}) => {
     const [posts, setPosts] = useState([]);
 
     console.log('posts: ', posts);
@@ -24,12 +26,16 @@ const Posts = ({token, match, loggedIn}) => {
 
 useEffect(() => {
     fetchPosts(token, setPosts)
-    console.log(fetchPosts)
+    
+}, [token]);
+
+useEffect(() => {
+        deletePost(token, postID)
     
 }, [token]);
 
 // useEffect(() => {
-//     const postID = match.params.postID;
+    
 //     getPostWithID(token, postID, match.params.postID, setPosts);
 // },[token, match.params.postID]);
     
@@ -48,9 +54,12 @@ useEffect(() => {
                                         <li>Seller: {post.author.username}</li> 
                                         <ul> { post.isAuthor ? 
                                             <button
-                                        onClick={() => editPost() }
-                                        className="editButton">
-                                            edit post
+                                                onClick={async () => {
+                                                    const postID = post._id;
+                                                    const result = await deletePost(token, post._id);
+                                                        }}
+                                                className="deleteButton">
+                                                    Delete
                                             </button>
                                         : null }
                                         
