@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -14,8 +14,13 @@ import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
 
 //post component//
 //requires token to be rendered, so extract that token and set the state of posts inside of the post component
-const Posts = ({token, loggedIn, postID, history}) => {
+const Posts = ({token, loggedIn, postID}) => {
     const [posts, setPosts] = useState([]);
+    const history = useHistory();
+
+    function backtoProfile() {
+        history.push("/profile");
+      };
 
     console.log('posts: ', posts);
     
@@ -54,7 +59,7 @@ useEffect(() => {
                                                     const postID = post._id;
                                                     const result = await deletePost(token, post._id);
                                                     alert(`Delete ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
-                                                    history.push('/posts')
+                                                    backtoProfile();
                                                         }}
                                                 className="deleteButton">
                                                     Delete

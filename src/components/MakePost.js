@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import BASE_URL from '../constants';
 import { newPost } from '../api';
 
@@ -10,7 +10,10 @@ const MakePost = ({token, setPosts, posts}) => {
     const [newPrice, setNewPrice] = useState('');
     const [newLocation, setNewLocation] = useState('');
     const [newTransport, setNewTransport] = useState(false);
-
+    const history = useHistory();
+    function toListings() {
+        history.push('/posts');
+    }
     return(
         <article className='newPostArticle'>
             <h3>Create New Listing</h3>
@@ -19,6 +22,8 @@ const MakePost = ({token, setPosts, posts}) => {
                 try {
                     const result = await newPost(token, newTitle, newDescrip, newPrice, newLocation, newTransport);
                     setPosts([...posts, result])
+                    alert(`Post ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
+                    toListings();
                     
                 }
                 catch (error) {
