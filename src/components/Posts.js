@@ -1,19 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { makeHeaders, fetchPosts, getPostWithID, deletePost } from '../api';
+import { makeHeaders, fetchPosts, getPostWithID, deletePost, messageUser } from '../api';
 import { useHistory } from 'react-router-dom';
 
 
-
-
-
-//fetch posts using the makeHeaders function, which requires a token, and which gives this fetch call the token as authorization. 
-//take that data, parse it, and let dataposts be equal to data.data.posts.
-//set the state of posts using dataposts
-
-
-
-//post component//
-//requires token to be rendered, so extract that token and set the state of posts inside of the post component
 const Posts = ({token, loggedIn, postID}) => {
     const [posts, setPosts] = useState([]);
     const history = useHistory();
@@ -24,10 +13,7 @@ const Posts = ({token, loggedIn, postID}) => {
 
     console.log('posts: ', posts);
     
-//FETCH POSTS//
-//*** makes a call for posts when token available ***//
-//as a "side effect" of the token being available, fetch the posts and set those to state 
-//then return the listings
+
 
 useEffect(() => {
     fetchPosts(token, setPosts)
@@ -65,8 +51,22 @@ useEffect(() => {
                                                     Delete
                                             </button>
                                         : null }
-                                        
-                                        </ul></div>
+                                        </ul>
+                                        <ul>
+                                            { !post.isAuthor ? 
+                                            <button
+                                                onClick={async () => {
+                                                    const postID = post._id;
+                                                    const result = await messageUser(token, post._id);
+                                                    backtoProfile();
+                                                }}
+                                                className="messageButton">
+                                                    Send Message 
+                                            </button>
+                                        : null }
+                                        </ul>
+
+                                        </div>
                                         )
                                     } 
                                         </ul>

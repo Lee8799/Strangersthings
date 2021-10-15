@@ -122,6 +122,24 @@ export async function deletePost(token, postID){
     }
 }
 
+//MESSAGE USER//
+
+export async function messageUser(token, postID){
+  try {
+    const result = await fetch(`${BASE_URL}/posts/${postID}/messages`, {
+      method: "POST",
+      headers: makeHeaders(token)
+    })
+    const data = await result.json()
+    return data;
+  }
+  catch (error) {
+    console.error(error)
+  }
+}
+
+
+
 //GET YOUR POST WITH ID//
 
 // export async function getPostWithID(token, postID, setPost){
