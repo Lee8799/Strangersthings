@@ -14,9 +14,9 @@ const Profile = ({token}) => {
         getUser(token, setUser)
     }, [token])
 
-    useEffect(() => {
-        getPostWithID(token, match.params.postID, setPosts)
-    }, [token, match.params.postID])
+    // useEffect(() => {
+    //     getPostWithID(token, match.params.postID, setPosts)
+    // }, [token, match.params.postID])
 
    {
         return (

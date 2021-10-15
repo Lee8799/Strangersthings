@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
-import { Login, Profile, Posts, MakePost, Message } from './components';
+import { Login, Profile, Posts, MakePost, SinglePost } from './components';
 import { getUser, logout, isLoggedIn } from './api';
 
 
@@ -12,7 +12,14 @@ const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token')); //we need to put token state here because it will be used throughout the entire app//
     const [user, setUser] = useState({});
     const [posts, setPosts] = useState([]);
+    const [onePost, setOnePost] = useState({});
     const [loggedIn, setLoggedIn] = useState(isLoggedIn(token));
+
+    // const history = useHistory();
+
+    // function backtoLogin() {
+    //     history.push('/login');
+    //   }
 
     useEffect(() => {
         setLoggedIn(isLoggedIn(token));
@@ -47,6 +54,7 @@ return (
             onClick={() => {
                 alert('See you next time!')
                 logout(setToken);
+
             }} > Logout </span>
                 <p>
                     <Link to="/profile"> Profile </Link>
@@ -60,6 +68,7 @@ return (
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
             <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
+            <Route path="/singlepost/:postID" render={(routeProps) => <SinglePost {...routeProps} token={token} setToken={setToken} onePost={onePost} setOnePost={setOnePost} />} />
             <Route exact path="/" render={(routeProps) => token ? <Profile token={token} {...routeProps}/> : <Login {...routeProps} setToken={setToken} />} />
         
 

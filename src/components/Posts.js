@@ -3,10 +3,10 @@ import { makeHeaders, fetchPosts, getPostWithID, deletePost, messageUser } from 
 import { useHistory } from 'react-router-dom';
 
 
-const Posts = ({token, loggedIn, postID}) => {
+const Posts = ({token}) => {
     const [posts, setPosts] = useState([]);
     const history = useHistory();
-    const [message, setMessage] = useState('');
+   
 
     function backtoProfile() {
         history.push("/profile");
@@ -18,14 +18,14 @@ const Posts = ({token, loggedIn, postID}) => {
 
 useEffect(() => {
     fetchPosts(token, setPosts)
-    
+
 }, [token]);
 
 
 // useEffect(() => {
     
-//     getPostWithID(token, postID, match.params.postID, setPosts);
-// },[token, match.params.postID]);
+//     getPostWithID(token, postID, setPost)
+// },[token, postID, setPost]);
     
         return (
             <div>
@@ -46,32 +46,20 @@ useEffect(() => {
                                                     const postID = post._id;
                                                     const result = await deletePost(token, post._id);
                                                     alert(`Delete ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
-                                                    backtoProfile();
+                                                    backToProfile();
                                                         }}
                                                 className="deleteButton">
                                                     Delete
                                             </button>
-                                                :   <form
-                                                        onSubmit={async (event) => {
-                                                        event.preventDefault();
-                                                        const postID = post._id;
-                                                        const result = await messageUser(token, postID, message);
-                                                        alert(`Message ${result.success? 'sent' : 'not sent'}`);
-                                                        setMessage('');}}>
-                                                    <textarea
-                                                        type="text"
-                                                        placeholder='your message here'
-                                                        autoFocus
-                                                        required
-                                                        id="message"
-                                                        value={message}
-                                                        onChange={({target: {value}}) => setMessage(value)
-                                            }/>
-                                            <button 
-                                            className="sendMessage">
+                                                :   
+                                            
+                                            <button
+                                                onClick={async () => {
+                                                    history.push(`/singlepost/${post._id}`);
+                                                }}
+                                                className="toSinglePost">
                                                 Send Message
                                             </button>
-                                            </form>
                                      }
                                         </ul>
                                         </div>

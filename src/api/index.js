@@ -139,30 +139,33 @@ export async function messageUser(token, postID){
 }
 
 
-
 //GET A POST WITH ID//
 
-export async function getPostWithID(token, postID, setPosts){
+export async function getPostWithID(token, postID){
   try{
-      const response = await fetch(`${BASE_URL}/posts/${postID}`, {
+      const response = await fetch(`${BASE_URL}/posts`, {
           method: "GET",
           headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token
+              'Authorization': `Bearer ${token}`
           }
       })
       const result = await response.json();
-      const IDPOST = result.data.posts;
-      IDPOST.forEach((post) => {
-        if(post._id === postID) {
-          setPosts(post);
+      const posts = result.data.posts;
+          const singlePost = posts.find((post) => {
+            if (post._id === postID) {
+            console.log(post);
+            return post;
         }
-      })
-      
+    })
+    return singlePost;      
   }catch (error){
-      console.error(error)
+      console.error("Isssue Fetching Users Posts", error)
   }
 }
+
+
+ 
 
 
 
