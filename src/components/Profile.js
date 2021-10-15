@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import { getUser, fetchPosts } from '../api';
+import { getUser, fetchPosts, getPostWithID } from '../api';
+
 
 
 //when given a token, render getUser as a "side effect" of the profile component. if the token is there, return a greeting (etc), otherwise, tell the user to login into their account
@@ -7,19 +8,27 @@ import { getUser, fetchPosts } from '../api';
 const Profile = ({token}) => {
     const [user, setUser] = useState("");
     const [posts, setPosts] = useState([]);
+    const [message, setMessage] = useState([]);
 
     useEffect(() => {
         getUser(token, setUser)
-        fetchPosts(token, setPosts)
     }, [token])
+
+    useEffect(() => {
+        getPostWithID(token, match.params.postID, setPosts)
+    }, [token, match.params.postID])
 
    {
         return (
             <div className="centered">
                 <h1> Welcome back, {user}!</h1> 
-            </div>)
+                <h3>Your messages:</h3>
+                
+                </div>
+            )
+            }
   }
-}
+
                     
                     
 //         if (token) {

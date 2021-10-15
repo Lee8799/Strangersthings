@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 const Posts = ({token, loggedIn, postID}) => {
     const [posts, setPosts] = useState([]);
     const history = useHistory();
+    const [message, setMessage] = useState('');
 
     function backtoProfile() {
         history.push("/profile");
@@ -50,22 +51,29 @@ useEffect(() => {
                                                 className="deleteButton">
                                                     Delete
                                             </button>
-                                        : null }
-                                        </ul>
-                                        <ul>
-                                            { !post.isAuthor ? 
-                                            <button
-                                                onClick={async () => {
-                                                    const postID = post._id;
-                                                    const result = await messageUser(token, post._id);
-                                                    backtoProfile();
-                                                }}
-                                                className="messageButton">
-                                                    Send Message 
+                                                :   <form
+                                                        onSubmit={async (event) => {
+                                                        event.preventDefault();
+                                                        const postID = post._id;
+                                                        const result = await messageUser(token, postID, message);
+                                                        alert(`Message ${result.success? 'sent' : 'not sent'}`);
+                                                        setMessage('');}}>
+                                                    <textarea
+                                                        type="text"
+                                                        placeholder='your message here'
+                                                        autoFocus
+                                                        required
+                                                        id="message"
+                                                        value={message}
+                                                        onChange={({target: {value}}) => setMessage(value)
+                                            }/>
+                                            <button 
+                                            className="sendMessage">
+                                                Send Message
                                             </button>
-                                        : null }
+                                            </form>
+                                     }
                                         </ul>
-
                                         </div>
                                         )
                                     } 

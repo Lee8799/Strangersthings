@@ -140,29 +140,29 @@ export async function messageUser(token, postID){
 
 
 
-//GET YOUR POST WITH ID//
+//GET A POST WITH ID//
 
-// export async function getPostWithID(token, postID, setPost){
-//   try{
-//       const response = await fetch(`${BASE_URL}/posts/${post._id}`, {
-//           method: "GET",
-//           headers: {
-//               'Content-Type': 'application/json',
-//               'Authorization': 'Bearer ' + token
-//           }
-//       })
-//       const result = await response.json();
-//       const IDPOST = result.data.posts;
-//       IDPOST.forEach((post) => {
-//         if(post._id === postID) {
-//           setPost(post);
-//         }
-//       })
+export async function getPostWithID(token, postID, setPosts){
+  try{
+      const response = await fetch(`${BASE_URL}/posts/${postID}`, {
+          method: "GET",
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+          }
+      })
+      const result = await response.json();
+      const IDPOST = result.data.posts;
+      IDPOST.forEach((post) => {
+        if(post._id === postID) {
+          setPosts(post);
+        }
+      })
       
-//   }catch (error){
-//       console.error(error)
-//   }
-// }
+  }catch (error){
+      console.error(error)
+  }
+}
 
 
 

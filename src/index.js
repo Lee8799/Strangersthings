@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
-import { Login, Profile, Posts, MakePost } from './components';
+import { Login, Profile, Posts, MakePost, Message } from './components';
 import { getUser, logout, isLoggedIn } from './api';
 
 
