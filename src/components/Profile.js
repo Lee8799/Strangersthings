@@ -1,33 +1,57 @@
 import React, {useState, useEffect} from 'react';
-import { getUser, fetchPosts, getPostWithID } from '../api';
+import { getUser } from '../api';
 
 
 
 //when given a token, render getUser as a "side effect" of the profile component. if the token is there, return a greeting (etc), otherwise, tell the user to login into their account
 //extract the token into the profile and set the state of user inside of the profile
 const Profile = ({token}) => {
-    const [user, setUser] = useState("");
-    const [posts, setPosts] = useState([]);
-    const [message, setMessage] = useState([]);
+    const [user, setUser] = useState([]);
+    const [message, setMessage] = useState([])
 
-    useEffect(() => {
-        getUser(token, setUser)
+    // const [messages, setMessages] = useState('');
+    // const [userMessages, setUserMessages] = useState('');
+    
+   
+
+    useEffect(async () => {
+        
+       const userdata = await getUser(token, setUser);
+       console.log('messages:', userdata.data)
+       setUser(userdata.data)
+       setMessage(userdata.data.messages)
+       
+       
     }, [token])
 
-    // useEffect(() => {
-    //     getPostWithID(token, match.params.postID, setPosts)
-    // }, [token, match.params.postID])
+  
 
-   {
+  
         return (
             <div className="centered">
-                <h1> Welcome back, {user}!</h1> 
-                <h3>Your messages:</h3>
+                <h1> Welcome back, {user.username}!</h1>
+                <h3>Inbox:</h3>
                 
-                </div>
+
+                {
+                    message.map((message, index) => {
+                        return (
+                                <div key={index}>
+                                    <ul >
+                                        <li><h3>Post: {message.title}</h3></li>
+                                        
+                                        <li>Message: {message.content}</li>
+                                    </ul>
+                                </div> )}
+                            )
+                        }
+                    
+        
+            </div>
             )
             }
-  }
+        
+  
 
                     
                     

@@ -10,7 +10,7 @@ import { getUser, logout, isLoggedIn } from './api';
 
 const App = () => {
     const [token, setToken] = useState(localStorage.getItem('token')); //we need to put token state here because it will be used throughout the entire app//
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState("");
     const [posts, setPosts] = useState([]);
     const [onePost, setOnePost] = useState({});
     const [loggedIn, setLoggedIn] = useState(isLoggedIn(token));
@@ -67,9 +67,9 @@ return (
             <Route path="/makepost" render={(routeProps) => <MakePost {...routeProps} token={token} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
             <Route path="/login" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />}/> 
             <Route path="/register" render={(routeProps) => <Login {...routeProps} setToken={setToken} setUser={setUser} />} />
-            <Route path="/profile" render={(routeProps) => <Profile token={token} {...routeProps} />} />
+            <Route path="/profile" render={(routeProps) => <Profile {...routeProps} token={token} setUser={setUser} user={user} />} />
             <Route path="/singlepost/:postID" render={(routeProps) => <SinglePost {...routeProps} token={token} setToken={setToken} onePost={onePost} setOnePost={setOnePost} />} />
-            <Route exact path="/" render={(routeProps) => token ? <Profile token={token} {...routeProps}/> : <Login {...routeProps} setToken={setToken} />} />
+            <Route exact path="/" render={(routeProps) => token ? <Profile {...routeProps} token={token} setToken={setToken} user={user} /> : <Login {...routeProps} setToken={setToken} />} />
         
 
     </div>

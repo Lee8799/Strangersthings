@@ -15,22 +15,37 @@ export function isLoggedIn(token) {
 
 //to getUser's info, fetch the API info about user using this token as auth, then parse the data and let the results be equal to data. then, set the state of user to data.data.username
 export async function getUser(token, setUser){
-  try { console.log(token)
+  try { 
     const result = await fetch(BASE_URL + '/users/me', {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+      },
     })
     const data = await result.json();
     console.log(data);
-    setUser(data.data.username);
-    
+    // console.log(data.data.username)
+    setUser[data.data.username];
+    return data;
+
 } catch(error) {
   console.error(error);
   }
 }
 
+// export async function getUserMessages(token, setUserMessages){
+//   try { console.log(token)
+//     const result = await fetch(BASE_URL + '/users/me', {
+//           headers: makeHeaders(token)
+//     })
+//     const data = await result.json();
+//     const datamessages = data.data.messages
+//     console.log(datamessages);
+//     setUserMessages[datamessages];
+// } catch(error) {
+//   console.error(error);
+//   }
+// }
 
 
 //FETCH POSTS//
@@ -126,10 +141,18 @@ export async function deletePost(token, postID){
 
 export async function messageUser(token, postID){
   try {
-    const result = await fetch(`${BASE_URL}/posts/${postID}/messages`, {
-      method: "POST",
-      headers: makeHeaders(token)
+      const result = await fetch(`${BASE_URL}/posts/${postID}/messages`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+      },
+    body: JSON.stringify({
+      message: {
+        content: 'content'
+      },
     })
+  })
     const data = await result.json()
     return data;
   }
@@ -158,7 +181,8 @@ export async function getPostWithID(token, postID){
             return post;
         }
     })
-    return singlePost;      
+    console.log(singlePost)    
+    return singlePost;  
   }catch (error){
       console.error("Isssue Fetching Users Posts", error)
   }
