@@ -14,7 +14,7 @@ const App = () => {
     const [posts, setPosts] = useState([]);
     const [onePost, setOnePost] = useState({});
     const [loggedIn, setLoggedIn] = useState(isLoggedIn(token));
-
+ 
     // const history = useHistory();
 
     // function backtoLogin() {
@@ -37,6 +37,7 @@ const App = () => {
         }    
     }, [token])
 
+   
 
 
 return ( 
@@ -45,6 +46,8 @@ return (
         <div id="title">
         <Link to="/profile">STRANGERS' THINGS</Link>
         </div>
+
+      
 
         <div id="navbar">
             <Link to="/login"> Login </Link>
@@ -61,6 +64,14 @@ return (
                     <Link to="/posts"> Listings   </Link>
                     <Link to="/makepost"> Create New </Link>
                 </p>
+
+                
+
+
+      
+
+
+
                     
         </div>  
             <Route path="/posts" render={(routeProps) => <Posts {...routeProps} loggedIn={loggedIn} token={token} setToken={setToken} setPosts={setPosts} posts={posts} />}/>
