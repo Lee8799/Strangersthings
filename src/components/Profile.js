@@ -15,20 +15,21 @@ const Profile = ({token}) => {
    
 
     useEffect(async () => {
-        
+        if(token) {
        const userdata = await getUser(token, setUser);
        console.log('userdata.data', userdata.data)
        setUser(userdata.data)
        setMessage(userdata.data.messages)
-       
+    }
        
     }, [token])
 
   
 
-  
+  if(token) {
         return (
             <>
+        
             <div className="centered">
                 <h1> Welcome back, {user.username}!</h1>
                 <h3>Inbox:</h3>
@@ -71,10 +72,13 @@ const Profile = ({token}) => {
                             )
                 }        
             </div>
-
+            
             </>
-
-            )
+            )} else {
+                return(
+                    <h3>Please login to view your profile</h3>
+                )
+            }
             }
         
   

@@ -22,10 +22,7 @@ useEffect(() => {
 }, [token]);
 
 
-// useEffect(() => {
-    
-//     getPostWithID(token, postID, setPost)
-// },[token, postID, setPost]);
+
     
         return (
             <div>
@@ -33,39 +30,40 @@ useEffect(() => {
                         <h2>Current Listings</h2>
                     </div>
                             <ul className="otherPosts">
-                                {
-                                    posts.map((post, idx) => 
-                                    <div key={idx}>
-                                        <h3>{post.title}</h3>
-                                        <p>Description: {post.description}</p>
-                                        <li>Price: {post.price}</li>
-                                        <li>Seller: {post.author.username}</li> 
-                                        <ul> { post.isAuthor ? 
-                                            <button
-                                                onClick={async () => {
-                                                    const postID = post._id;
-                                                    const result = await deletePost(token, post._id);
-                                                    alert(`Delete ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
-                                                    backToProfile();
+                                        {
+                                            posts.map((post, idx) => 
+                                            <div key={idx}>
+                                                <h3>{post.title}</h3>
+                                                <p>Description: {post.description}</p>
+                                                <li>Price: {post.price}</li>
+                                                <li>Seller: {post.author.username}</li> 
+                                        { token? 
+                                                <ul>
+                                                    { post.isAuthor ? 
+                                                    <button
+                                                        onClick={async () => {
+                                                            const postID = post._id;
+                                                            const result = await deletePost(token, post._id);
+                                                            alert(`Delete ${result.success? 'successful!' : 'unsuccessful - try again!'}`);
+                                                            backToProfile();
+                                                                }}
+                                                        className="deleteButton">
+                                                            Delete
+                                                    </button>
+                                                        :   
+                                                    
+                                                    <button
+                                                        onClick={async () => {
+                                                            history.push(`/singlepost/${post._id}`);
                                                         }}
-                                                className="deleteButton">
-                                                    Delete
-                                            </button>
-                                                :   
-                                            
-                                            <button
-                                                onClick={async () => {
-                                                    history.push(`/singlepost/${post._id}`);
-                                                }}
-                                                className="toSinglePost">
-                                                Send Message
-                                            </button>
-                                     }
-                                        </ul>
-                                        </div>
-                                        )
-                                    } 
-                                        </ul>
+                                                        className="toSinglePost">
+                                                        Send Message
+                                                    </button>
+                                        } 
+                                    </ul> : null }
+                                </div>
+                                            )} 
+                            </ul>
                      </div>
                   
    )
