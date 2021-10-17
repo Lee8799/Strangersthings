@@ -17,7 +17,7 @@ const Profile = ({token}) => {
     useEffect(async () => {
         
        const userdata = await getUser(token, setUser);
-       console.log('messages:', userdata.data)
+       console.log('userdata.data', userdata.data)
        setUser(userdata.data)
        setMessage(userdata.data.messages)
        
@@ -28,6 +28,7 @@ const Profile = ({token}) => {
 
   
         return (
+            <>
             <div className="centered">
                 <h1> Welcome back, {user.username}!</h1>
                 <h3>Inbox:</h3>
@@ -35,19 +36,44 @@ const Profile = ({token}) => {
 
                 {
                     message.map((message, index) => {
+                        if (user.username !== message.fromUser.username) {
                         return (
                                 <div key={index}>
                                     <ul >
-                                        <li><h3>Post: {message.title}</h3></li>
-                                        
-                                        <li>Message: {message.content}</li>
+                                        <ul><h4>Post: {message.post.title}</h4></ul>
+                                        <ul>Sender: {message.fromUser.username}</ul>
+                                        <ul>Message: {message.content}</ul>
                                     </ul>
-                                </div> )}
+                                </div> 
+                                )}
+                                
+                              }
                             )
-                        }
-                    
-        
+                }        
             </div>
+
+            <div>
+                <h3>Sent Messages: </h3>
+                {
+                    message.map((message, index) => {
+                        if (user.username === message.fromUser.username) {
+                        return (
+                                <div key={index}>
+                                    <ul >
+                                        <ul><h4>Post: {message.post.title}</h4></ul>
+                                        <ul>Sender: Me </ul>
+                                        <ul>Message: {message.content}</ul>
+                                    </ul>
+                                </div> 
+                                )}
+                                
+                              }
+                            )
+                }        
+            </div>
+
+            </>
+
             )
             }
         
