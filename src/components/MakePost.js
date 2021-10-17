@@ -14,6 +14,8 @@ const MakePost = ({token, setPosts, posts}) => {
     function toListings() {
         history.push('/posts');
     }
+
+    if(token) {
     return(
         <article className='newPostArticle'>
             <h3>Create New Listing</h3>
@@ -78,7 +80,12 @@ const MakePost = ({token, setPosts, posts}) => {
                                 <button className="submitNewPost">Submit</button>
             </form>
         </article>
-    )
+    ) }
+    else {
+        return(
+            <h3>Please <Link to='/login'>login </Link>to create a new listing.</h3>
+        )
+    }
 }
 
 export default MakePost;

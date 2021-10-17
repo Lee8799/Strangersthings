@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import { getUser } from '../api';
 
 
@@ -76,7 +77,7 @@ const Profile = ({token}) => {
             </>
             )} else {
                 return(
-                    <h3>Please login to view your profile</h3>
+                    <h3>Please <Link to='/login'>login </Link>to view your profile</h3>
                 )
             }
             }
