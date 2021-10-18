@@ -82,29 +82,5 @@ const Profile = ({token}) => {
             }
             }
         
-  
-
-                    
-                    
-//         if (token) {
-//                             return (
-//                                 <div>
-//                                     <h2>Your Listings:</h2>
-//                                         <ul className="myPosts"> 
-//                                             {
-//                                                 posts.map((post, idx) => 
-//                                                     <div key={idx}>
-//                                                         <h3>{post.title}</h3>
-//                                                         <p>Description: {post.description}</p>
-//                                                         <li>Price: {post.price}</li>
-//                                                         <li>Seller: {post.author.username}</li>
-//                                                     </div>)
-//                                             }
-//                                         </ul>
-//                                 </div>)
-//                                 }
-           
-            
-//   } 
 
 export default Profile;

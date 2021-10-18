@@ -17,7 +17,7 @@ export { Profile };
 export { Posts };
 export { MakePost };
 export { SinglePost };
-export { SearchBar };
+export { SearchBar }
 
 
 

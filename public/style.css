@@ -14,6 +14,7 @@
 
 #navbar {
     text-align:center;
+    
 }
 
 #navbar a {
@@ -26,6 +27,7 @@ a:hover {
 
 #logoutbutton {
     color: black; 
+    text-decoration: underline;
 }
 
 #logoutbutton:hover {
@@ -34,3 +36,13 @@ a:hover {
     text-decoration: underline;
 }
 
+.searchbar {
+    display:flex;
+    justify-content: center;
+    
+}
+
+.searchbox {
+    height:10px;
+    width:200px;
+}

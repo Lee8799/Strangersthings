@@ -33,19 +33,7 @@ export async function getUser(token, setUser){
   }
 }
 
-// export async function getUserMessages(token, setUserMessages){
-//   try { console.log(token)
-//     const result = await fetch(BASE_URL + '/users/me', {
-//           headers: makeHeaders(token)
-//     })
-//     const data = await result.json();
-//     const datamessages = data.data.messages
-//     console.log(datamessages);
-//     setUserMessages[datamessages];
-// } catch(error) {
-//   console.error(error);
-//   }
-// }
+
 
 
 //FETCH POSTS//
@@ -90,34 +78,6 @@ export async function newPost(token, newTitle, newDescrip, newPrice, newLocation
 }
 
 
-//EDIT POST//
-
-// export async function editPost(token, postID, editTitle, editDescrip, editPrice, editLocation, editTransport) {
-//   try {
-//     const result = await fetch(BASE_URL + '/posts/' + postID, {
-//         method: 'PATCH',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': 'Bearer ' + token
-//         },
-//         body: JSON.stringify({
-//             post: {
-//                 title: editTitle,
-//                 description: editDescrip,
-//                 price: editPrice,
-//                 location: editLocation,
-//                 willDeliver: editTransport
-//             }
-//         })
-//     })
-//     const data = await result.json();
-//     console.log(data);
-//     return data;
-// } catch(error) {
-//     console.log(error);
-// }
-// }
-    
   
 
 

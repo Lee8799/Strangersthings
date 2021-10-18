@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { makeHeaders, fetchPosts, getPostWithID, deletePost, messageUser } from '../api';
 import { useHistory } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 
-const Posts = ({token}) => {
+const Posts = ({token, postsDisplay, setPostsDisplay}) => {
     const [posts, setPosts] = useState([]);
     const history = useHistory();
+
    
 
     function backtoProfile() {
@@ -18,8 +20,8 @@ const Posts = ({token}) => {
 
 useEffect(() => {
     fetchPosts(token, setPosts)
-
 }, [token]);
+
 
 
 
@@ -27,6 +29,8 @@ useEffect(() => {
         return (
             <div>
                     <div>
+                        <span className="searchbar">Search Listings: <SearchBar postsDisplay={postsDisplay} setPostsDisplay={setPostsDisplay} /></span>
+                        
                         <h2>Current Listings</h2>
                     </div>
                             <ul className="otherPosts">

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Link, useHistory } from 'react-router-dom';
 
-import { Login, Profile, Posts, MakePost, SinglePost } from './components';
+import { Login, Profile, Posts, MakePost, SinglePost, SearchBar } from './components';
 import { getUser, logout, isLoggedIn } from './api';
 
 
@@ -14,19 +14,14 @@ const App = () => {
     const [posts, setPosts] = useState([]);
     const [onePost, setOnePost] = useState({});
     const [loggedIn, setLoggedIn] = useState(isLoggedIn(token));
- 
-    // const history = useHistory();
 
-    // function backtoLogin() {
-    //     history.push('/login');
-    //   }
 
     useEffect(() => {
         setLoggedIn(isLoggedIn(token));
     }, [token])
     
     
-    //we can use setToken as a prop in the navbar div because we are rendering routeProps//
+    
 
     //*** checks to see if there is token in local storage ***//
     useEffect(() => {
@@ -40,6 +35,7 @@ const App = () => {
    
 
 
+
 return ( 
 <BrowserRouter>
     <div id="container">
@@ -47,7 +43,7 @@ return (
         <Link to="/profile">STRANGERS' THINGS</Link>
         </div>
 
-      
+    
 
         <div id="navbar">
             <Link to="/login"> Login </Link>

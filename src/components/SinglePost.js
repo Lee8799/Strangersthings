@@ -25,8 +25,6 @@ const SinglePost = ({token, match, onePost, setOnePost}) => {
    return (
         <>
    
-
-
         <div>
             <h3>{onePost.title}</h3>
             {/* <h4>{onePost.author.username}</h4> */}
