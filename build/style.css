@@ -1,0 +1,48 @@
+@import url(//db.onlinewebfonts.com/c/3f4943f4e662577a8113309f864540a4?family=ITC+Benguiat);
+
+#title {
+    font-family: "ITC Benguiat";
+    font-weight:bolder;
+    font-size: 40px;
+    text-shadow: 2px 2px red;
+    color: black;
+    text-align: center;
+}
+
+#title a {
+    color:inherit }
+
+#navbar {
+    text-align:center;
+    
+}
+
+#navbar a {
+    color: black
+}
+
+a:hover {
+    font-weight:bold;
+}
+
+#logoutbutton {
+    color: black; 
+    text-decoration: underline;
+}
+
+#logoutbutton:hover {
+    cursor: pointer;
+    font-weight:bold;
+    text-decoration: underline;
+}
+
+.searchbar {
+    display:flex;
+    justify-content: center;
+    
+}
+
+.searchbox {
+    height:10px;
+    width:200px;
+}
