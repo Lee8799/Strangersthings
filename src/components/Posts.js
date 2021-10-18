@@ -10,7 +10,7 @@ const Posts = ({token, postsDisplay, setPostsDisplay}) => {
 
    
 
-    function backtoProfile() {
+    function backToProfile() {
         history.push("/profile");
       };
 
