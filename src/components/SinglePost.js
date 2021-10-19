@@ -4,7 +4,7 @@ import { messageUser, getPostWithID } from '../api';
 
 
 
-const SinglePost = ({token, match, onePost, setOnePost}) => {
+const SinglePost = ({token, onePost, setOnePost}) => {
     const {postID} = useParams();
     const [message, setMessage] = useState('');
 //   const [message, setMessage] = useState('');

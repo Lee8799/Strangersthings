@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { makeHeaders, fetchPosts, getPostWithID, deletePost, messageUser } from '../api';
+import { fetchPosts, deletePost } from '../api';
 import { useHistory } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
@@ -18,8 +18,10 @@ const Posts = ({token, postsDisplay, setPostsDisplay}) => {
     
 
 
-useEffect(() => {
-    fetchPosts(token, setPosts)
+useEffect(async () => {
+   const stuff = await fetchPosts(token);
+    setPosts(stuff);
+    
 }, [token]);
 
 

@@ -37,14 +37,14 @@ export async function getUser(token, setUser){
 
 
 //FETCH POSTS//
-export async function fetchPosts(token, setPosts) {
+export async function fetchPosts(token) {
   try{
       const response = await fetch('https://strangers-things.herokuapp.com/api/2107-CSU-RM-WEB-PT/posts', {
           headers: makeHeaders(token)
       }) 
   const data = await response.json();
   const dataposts = data.data.posts;
-  setPosts(dataposts);
+  return dataposts;
   console.log('data: ', data.data.posts);
 }catch (error){
   console.error(error)
